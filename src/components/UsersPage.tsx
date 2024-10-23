@@ -1,5 +1,13 @@
+import { useUsers } from "../hooks/useUsers"
+import { UserRow } from "./UserRow";
+
+
+
 
 export const UsersPage = () => {
+  
+  const { users, nextPage, prevPage } = useUsers();
+
   return (
     <>
       <h3>Usuarios</h3>
@@ -12,13 +20,20 @@ export const UsersPage = () => {
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>avatar</td>
-                <td>nombre</td>
-                <td>email</td>
-            </tr>
+          {
+            users.map(user => (
+              <UserRow key={user.id} user={user}></UserRow>
+            ))
+          }
         </tbody>
       </table>
+      <div>
+        <button onClick={prevPage}>Prev</button>
+        <button onClick={nextPage} >Next</button> 
+      </div>
     </>
   )
 }
+
+
+
